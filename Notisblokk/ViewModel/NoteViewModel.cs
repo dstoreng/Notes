@@ -63,7 +63,7 @@ namespace Notisblokk
                 if (n.Id.Equals(id))
                     return n;
             }
-            throw new Exception("Note not found exception");
+            return null;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
