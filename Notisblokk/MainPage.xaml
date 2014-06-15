@@ -22,7 +22,7 @@
         </Grid.RowDefinitions>
         <TextBlock Margin="20,10,0,0" Grid.Column="0" FontSize="40" Text="My notes"/>
 
-        <ScrollViewer Grid.Row="2">   
+        <ScrollViewer Grid.Row="2" Hold="ScrollViewer_Hold" >   
             <StackPanel VerticalAlignment="Stretch">
                 <ItemsControl x:Name="ItemControlNotes" Tag="{Binding}">                  
                     <ItemsControl.ItemTemplate> 
@@ -48,7 +48,7 @@
             </StackPanel>
 
             <toolkit:ContextMenuService.ContextMenu>
-                <toolkit:ContextMenu IsZoomEnabled="True" Tag="{Binding}"  Name="NotesMenu" Opened="NotesMenu_Opened" >
+                <toolkit:ContextMenu IsZoomEnabled="True" Tag="{Binding}"  Name="NotesMenu"  >
                     <toolkit:MenuItem Name="ContextHeader" FontWeight="Bold" IsEnabled="False" />
                     <toolkit:MenuItem Name="CentextChange" Header="Change" Tap="Change_Tap" />
                     <toolkit:MenuItem Name="ContextDelete" Header="Delete" Tap="Delete_Tap" /> 

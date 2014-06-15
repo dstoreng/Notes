@@ -24,7 +24,7 @@ namespace Notisblokk
             InitializeComponent();
             viewModel = new NoteViewModel();
             viewModel.Notes.CollectionChanged += Notes_CollectionChanged;
-           ItemControlNotes.ItemsSource = viewModel.Notes;
+            ItemControlNotes.ItemsSource = viewModel.Notes;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -100,18 +100,10 @@ namespace Notisblokk
             }
         }
 
-        private void NotesMenu_Opened(object sender, RoutedEventArgs e)
+        private void ScrollViewer_Hold(object sender, System.Windows.Input.GestureEventArgs e)
         {
-            if (viewModel.Notes.Count < 1)
-            {
-                NotesMenu.IsEnabled = false;
-                NotesMenu.IsOpen = false;
-            }
-            else
-            {
-                NotesMenu.IsEnabled = true;
-                NotesMenu.IsOpen = true;
-            }
+            // Disables context menu when ViewModel is empty
+            e.Handled = true;
         }
     }
 }
