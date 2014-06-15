@@ -10,8 +10,8 @@ namespace Notisblokk
 {
     public class NoteViewModel : INotifyPropertyChanged
     {
-        public ObservableCollection<Note> _notes;
-        //public ObservableCollection<Note> Notes { get { return _notes; } }
+        private ObservableCollection<Note> _notes;
+        public ObservableCollection<Note> Notes { get { return _notes; } }
 
         public NoteViewModel()
         {
@@ -27,7 +27,7 @@ namespace Notisblokk
 
         private async void SaveData()
         {
-            _notes.Save(MainPage.FILENAME);            
+            await _notes.Save(MainPage.FILENAME);            
         }
 
         private void _notes_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -66,14 +66,14 @@ namespace Notisblokk
             throw new Exception("Note not found exception");
         }
 
-       public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
 
-       private void NotifyPropertyChanged(String info)
-       {
-           if (PropertyChanged != null)
-           {
-               PropertyChanged(this, new PropertyChangedEventArgs(info));
-           }
-       }
+        private void NotifyPropertyChanged(String info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
+        }
     }
 }

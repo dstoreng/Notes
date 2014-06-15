@@ -8,6 +8,7 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using Notisblokk.Resources;
+using System.Threading.Tasks;
 
 namespace Notisblokk
 {
@@ -22,13 +23,12 @@ namespace Notisblokk
         {
             InitializeComponent();
             viewModel = new NoteViewModel();
-            viewModel._notes.CollectionChanged += Notes_CollectionChanged;
-            ItemControlNotes.ItemsSource = viewModel._notes;
+            viewModel.Notes.CollectionChanged += Notes_CollectionChanged;
+           ItemControlNotes.ItemsSource = viewModel.Notes;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            base.OnNavigatedTo(e);
             String id, description, content;
 
             // Navigated from EditNote.xml
@@ -47,18 +47,25 @@ namespace Notisblokk
                 {
                     if (NavigationContext.QueryString.TryGetValue("content", out content))
                     {
-                        viewModel.AddNote(description, content);
-                        NavigationService.RemoveBackEntry();
+                        Dispatcher.BeginInvoke(() =>
+                        {
+                            viewModel.AddNote(description, content);
+                            NavigationService.RemoveBackEntry();
+                        });
                     }
                 }
             }
-            NavigationService.RemoveBackEntry();
+            NavigationContext.QueryString.Clear();
+            NavigationService.RemoveBackEntry();                
         }
 
         private void Notes_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            ItemControlNotes.ItemsSource = null;
-            ItemControlNotes.ItemsSource = viewModel._notes;
+            Dispatcher.BeginInvoke(() =>
+            {
+                ItemControlNotes.ItemsSource = null;
+                ItemControlNotes.ItemsSource = viewModel.Notes;
+            });
         }
 
         private void newNote_Click(object sender, EventArgs e)
@@ -70,16 +77,41 @@ namespace Notisblokk
         {
             selectedNote = ((TextBlock)sender).Tag as Note;
             NotesMenu.IsOpen = true;
+            ContextHeader.Header = selectedNote.Description;
         }
 
         void Change_Tap(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Uri("/EditNote.xaml?id=" + selectedNote.Id + "&description=" + selectedNote.Description + "&content=" + selectedNote.Content, UriKind.Relative));
+            NotesMenu.IsOpen = false;
+            NavigationService.Navigate(new Uri("/EditNote.xaml?id=" + selectedNote.Id + 
+                "&description=" + selectedNote.Description + "&content=" + selectedNote.Content, UriKind.Relative));
         }
 
-        async void Delete_Tap(object sender, RoutedEventArgs e)
+        void Delete_Tap(object sender, RoutedEventArgs e)
         {
-            viewModel.Delete(selectedNote);
+            NotesMenu.IsOpen = false;
+            if (MessageBox.Show("Are you sure?", "Delete " + selectedNote.Description + "?",
+                MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+            {
+                Dispatcher.BeginInvoke(() =>
+                {
+                    viewModel.Delete(selectedNote);
+                });
+            }
+        }
+
+        private void NotesMenu_Opened(object sender, RoutedEventArgs e)
+        {
+            if (viewModel.Notes.Count < 1)
+            {
+                NotesMenu.IsEnabled = false;
+                NotesMenu.IsOpen = false;
+            }
+            else
+            {
+                NotesMenu.IsEnabled = true;
+                NotesMenu.IsOpen = true;
+            }
         }
     }
 }

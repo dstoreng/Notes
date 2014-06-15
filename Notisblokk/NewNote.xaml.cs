@@ -32,10 +32,8 @@ namespace Notisblokk
                 MessageBox.Show("Description cannot exceed 13 letters.");
                 return;
             }
-
-            description = (textBoxDescription.Text != null) ? textBoxDescription.Text : DateTime.Now.ToShortDateString();
-            content = (textBoxContent.Text != null) ? textBoxContent.Text : DateTime.Now.ToShortDateString();
-
+            description = textBoxDescription.Text;
+            content = textBoxContent.Text;
             NavigationService.Navigate(new Uri("/MainPage.xaml?description=" + description + "&content=" + content, UriKind.Relative));
         }
 

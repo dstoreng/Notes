@@ -27,7 +27,7 @@ namespace Notisblokk
                         serializer.Serialize(stream, obj);
                         isSaved = true;
                     }
-                    catch (Exception e) { }
+                    catch (Exception) { }
                     finally
                     {
                         if (stream != null)
@@ -69,20 +69,5 @@ namespace Notisblokk
             return obj;
         }
 
-        public static async Task ClearAppData(string file)
-        {
-            await Task.Run(() =>
-            {
-                IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication();
-                while (storage.FileExists(file))
-                {
-                    try
-                    {
-                        storage.DeleteFile(file);
-                    }
-                    catch (Exception) { }
-                }
-            });
-        }
     }
 }

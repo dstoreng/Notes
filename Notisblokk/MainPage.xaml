@@ -38,9 +38,9 @@
                             </Grid.RowDefinitions>
 
                             <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding Description}" Tag="{Binding}" Tap="Item_Tap"
-                                        FontSize="35" TextWrapping="Wrap" />
+                                        FontSize="35" TextWrapping="Wrap" Hold="Item_Tap" />
                             <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding Content}" Tag="{Binding}" Tap="Item_Tap"
-                                        FontSize="25" FontWeight="Thin" TextWrapping="Wrap" />
+                                        FontSize="25" FontWeight="Thin" TextWrapping="Wrap" Hold="Item_Tap" />
                             </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
@@ -48,9 +48,10 @@
             </StackPanel>
 
             <toolkit:ContextMenuService.ContextMenu>
-                <toolkit:ContextMenu IsZoomEnabled="True" Tag="{Binding}"  Name="NotesMenu" >
-                    <toolkit:MenuItem Name="ContextDelete" Header="Delete" Tap="Delete_Tap" />
+                <toolkit:ContextMenu IsZoomEnabled="True" Tag="{Binding}"  Name="NotesMenu" Opened="NotesMenu_Opened" >
+                    <toolkit:MenuItem Name="ContextHeader" FontWeight="Bold" IsEnabled="False" />
                     <toolkit:MenuItem Name="CentextChange" Header="Change" Tap="Change_Tap" />
+                    <toolkit:MenuItem Name="ContextDelete" Header="Delete" Tap="Delete_Tap" /> 
                 </toolkit:ContextMenu>
             </toolkit:ContextMenuService.ContextMenu>
 
@@ -65,5 +66,4 @@
             <shell:ApplicationBarIconButton IconUri="/Resources/new.png" Text="new" Click="newNote_Click" />
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
-
 </phone:PhoneApplicationPage>

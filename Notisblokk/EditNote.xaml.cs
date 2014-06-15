@@ -13,7 +13,6 @@ namespace Notisblokk
     public partial class EditNote : PhoneApplicationPage
     {
         private String description, content, id;
-        private String oldDescription, oldContent;
 
         public EditNote()
         {
@@ -27,17 +26,15 @@ namespace Notisblokk
                 if (NavigationContext.QueryString.TryGetValue("description", out description))
                 {
                     textBoxDescription.Text = description;
-                    oldDescription = description;
                     if (NavigationContext.QueryString.TryGetValue("content", out content))
                     {
-                        oldContent = content;
                         textBoxContent.Text = content;
                     }
                 }
             }
         }
 
-        private async void save_Click(object sender, EventArgs e)
+        private void save_Click(object sender, EventArgs e)
         {
             if (textBoxDescription.Text.Trim(' ') == "" || textBoxContent.Text.Trim(' ') == "")
             {
@@ -49,14 +46,12 @@ namespace Notisblokk
                 MessageBox.Show("Description cannot exceed 13 letters.");
                 return;
             }
-
-            description = (textBoxDescription.Text.Trim(' ') != "") ? textBoxDescription.Text : oldDescription;
-            content = (textBoxDescription.Text.Trim(' ') != "") ? textBoxContent.Text : oldContent;
-
+            description = textBoxDescription.Text;
+            content = textBoxContent.Text;
             NavigationService.Navigate(new Uri("/MainPage.xaml?id=" + id + "&description=" + description + "&content=" + content, UriKind.Relative));
         }
 
-        private async void cancel_Click(object sender, EventArgs e)
+        private void cancel_Click(object sender, EventArgs e)
         {
             NavigationService.GoBack();
         }
