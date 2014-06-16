@@ -5,11 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
+using Notisblokk.Theme;
 
 namespace Notisblokk
 {
     public class NoteViewModel : INotifyPropertyChanged
     {
+        private readonly String NOTEFILE = "notefile.xml";
         private ObservableCollection<Note> _notes;
         public ObservableCollection<Note> Notes { get { return _notes; } }
 
@@ -20,14 +22,14 @@ namespace Notisblokk
 
         private async void LoadData()
         {
-            _notes = await IsolatedStorageOperations.Load<ObservableCollection<Note>>(MainPage.FILENAME);
+            _notes = await IsolatedStorageOperations.Load<ObservableCollection<Note>>(NOTEFILE);
             _notes.CollectionChanged += _notes_CollectionChanged;
             NotifyPropertyChanged("collection loaded");
         }
 
         private async void SaveData()
         {
-            await _notes.Save(MainPage.FILENAME);            
+            await _notes.Save(NOTEFILE);            
         }
 
         private void _notes_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)

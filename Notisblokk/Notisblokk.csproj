@@ -96,6 +96,7 @@
     <Compile Include="EditNote.xaml.cs">
       <DependentUpon>EditNote.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Theme\CustomTheme.cs" />
     <Compile Include="Model\IsolatedStorageOperations.cs" />
     <Compile Include="LocalizedStrings.cs" />
     <Compile Include="MainPage.xaml.cs">
@@ -105,6 +106,7 @@
       <DependentUpon>NewNote.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\Note.cs" />
+    <Compile Include="Theme\ThemeHandler.cs" />
     <Compile Include="ViewModel\NoteViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\AppResources.Designer.cs">

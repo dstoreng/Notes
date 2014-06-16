@@ -12,6 +12,7 @@ namespace Notisblokk
         private String _description;
         private String _content;
         private String _id;
+        private DateTime _date;
         public String Id { get { return _id; } set { _id = value; } } 
 
         public String Description { 
@@ -27,6 +28,14 @@ namespace Notisblokk
             } 
         }
 
+        public DateTime Date
+        {
+            get { return _date; }
+            set { _date = value;
+                OnPropertyChanged("Date");
+            }
+        }
+
         public Note()
         {
         }
@@ -36,6 +45,7 @@ namespace Notisblokk
             _id = Guid.NewGuid().ToString();
             Description = desc;
             Content = content;
+            Date = DateTime.Now;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

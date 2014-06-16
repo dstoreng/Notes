@@ -12,46 +12,54 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
-    shell:SystemTray.IsVisible="True">
+    shell:SystemTray.IsVisible="True"
+    shell:SystemTray.Opacity="0">
 
-    <!--LayoutRoot is the root grid where all page content is placed-->
-    <Grid x:Name="LayoutRoot" Background="Transparent">
+    <Grid x:Name="LayoutRoot" Background="{StaticResource ThemeHeader}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="10*"/>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="9*" />
         </Grid.RowDefinitions>
-        <TextBlock Margin="20,10,0,0" Grid.Column="0" FontSize="40" Text="My notes"/>
+        <!-- Header -->
+        <Grid Grid.Column="0" Background="{StaticResource ThemeHeader}" >
+            <TextBlock Foreground="{StaticResource ThemeTitle}" Margin="20,10,0,0" FontSize="40" Text="My notes"/>
+        </Grid>
 
-        <ScrollViewer Grid.Row="2" Hold="ScrollViewer_Hold" >   
+        <ScrollViewer Grid.Row="2" Hold="ScrollViewer_Hold" Background="{StaticResource ThemeBackground}" >   
             <StackPanel VerticalAlignment="Stretch">
                 <ItemsControl x:Name="ItemControlNotes" Tag="{Binding}">                  
                     <ItemsControl.ItemTemplate> 
                         <DataTemplate>
                             
-                            <Grid Margin="20,20,20,20">
+                            <Grid Margin="20,20,20,0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*" />
                                 <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
 
+                            <!-- Items -->
                             <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding Description}" Tag="{Binding}" Tap="Item_Tap"
-                                        FontSize="35" TextWrapping="Wrap" Hold="Item_Tap" />
+                                FontSize="{StaticResource PhoneFontSizeLarge}" Foreground="{StaticResource ThemeHeader}" TextWrapping="Wrap" Hold="Item_Tap" />
                             <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding Content}" Tag="{Binding}" Tap="Item_Tap"
-                                        FontSize="25" FontWeight="Thin" TextWrapping="Wrap" Hold="Item_Tap" />
+                                    FontSize="{StaticResource PhoneFontSizeMedium}" Foreground="{StaticResource ThemeText}" FontWeight="Thin" TextWrapping="Wrap" Hold="Item_Tap" />
+                            <TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding Date}" Tag="{Binding}" Tap="Item_Tap"
+                                    FontSize="{StaticResource PhoneFontSizeMedium}" Foreground="{StaticResource ThemeH3}" FontWeight="Light" TextWrapping="Wrap" Hold="Item_Tap" />
                             </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </StackPanel>
 
+            <!-- Menu -->
             <toolkit:ContextMenuService.ContextMenu>
-                <toolkit:ContextMenu IsZoomEnabled="True" Tag="{Binding}"  Name="NotesMenu"  >
-                    <toolkit:MenuItem Name="ContextHeader" FontWeight="Bold" IsEnabled="False" />
-                    <toolkit:MenuItem Name="CentextChange" Header="Change" Tap="Change_Tap" />
-                    <toolkit:MenuItem Name="ContextDelete" Header="Delete" Tap="Delete_Tap" /> 
+                <toolkit:ContextMenu Background="{StaticResource ThemeBackground}" IsZoomEnabled="True" Tag="{Binding}"  Name="NotesMenu"  >
+                    <toolkit:MenuItem Foreground="{StaticResource ThemeHeader}" Name="ContextHeader" FontWeight="Bold" IsEnabled="False" />
+                    <toolkit:MenuItem Foreground="{StaticResource ThemeText}" Name="CentextChange" Header="Change" Tap="Change_Tap" />
+                    <toolkit:MenuItem Foreground="{StaticResource ThemeText}" Name="ContextDelete" Header="Delete" Tap="Delete_Tap" /> 
                 </toolkit:ContextMenu>
             </toolkit:ContextMenuService.ContextMenu>
 

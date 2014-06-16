@@ -9,14 +9,15 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using Notisblokk.Resources;
 using System.Threading.Tasks;
+using Notisblokk.Theme;
 
 namespace Notisblokk
 {
     public partial class MainPage : PhoneApplicationPage
     {
-        public static readonly String FILENAME = "notes.xml";
         private Note selectedNote;
         private NoteViewModel viewModel;
+        ThemeHandler handler;
 
         // Constructor
         public MainPage()
@@ -25,6 +26,8 @@ namespace Notisblokk
             viewModel = new NoteViewModel();
             viewModel.Notes.CollectionChanged += Notes_CollectionChanged;
             ItemControlNotes.ItemsSource = viewModel.Notes;
+            handler = ThemeHandler.getInstance();
+            handler.setApp(App.Current);
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

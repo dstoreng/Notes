@@ -8,6 +8,13 @@
     <!--Application Resources-->
     <Application.Resources>
         <local:LocalizedStrings xmlns:local="clr-namespace:Notisblokk" x:Key="LocalizedStrings"/>
+        <SolidColorBrush x:Key="ThemeTitle"/>
+        <SolidColorBrush x:Key="ThemeHeader"/>
+        <SolidColorBrush x:Key="ThemeH1"/>
+        <SolidColorBrush x:Key="ThemeH2"/>
+        <SolidColorBrush x:Key="ThemeH3"/>
+        <SolidColorBrush x:Key="ThemeText"/>
+        <SolidColorBrush x:Key="ThemeBackground"/>
     </Application.Resources>
 
     <Application.ApplicationLifetimeObjects>
