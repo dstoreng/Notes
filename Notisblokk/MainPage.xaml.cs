@@ -10,6 +10,7 @@ using Microsoft.Phone.Shell;
 using Notisblokk.Resources;
 using System.Threading.Tasks;
 using Notisblokk.Theme;
+using Notisblokk.Model;
 
 namespace Notisblokk
 {
@@ -41,8 +42,7 @@ namespace Notisblokk
                 {
                     if (NavigationContext.QueryString.TryGetValue("content", out content))
                     {
-                        Note n = viewModel.GetItem(id);
-                        viewModel.ChangeDetails(n, description, content);
+                        viewModel.ChangeDetails(id, description, content);
                     }
                 }
             }else{ // Navigated from NewNote.xml
@@ -53,13 +53,16 @@ namespace Notisblokk
                         Dispatcher.BeginInvoke(() =>
                         {
                             viewModel.AddNote(description, content);
-                            NavigationService.RemoveBackEntry();
                         });
                     }
                 }
             }
+            while (NavigationService.CanGoBack)
+            {
+                NavigationService.RemoveBackEntry();
+            }
             NavigationContext.QueryString.Clear();
-            NavigationService.RemoveBackEntry();                
+                            
         }
 
         private void Notes_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -79,8 +82,14 @@ namespace Notisblokk
         private void Item_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
             selectedNote = ((TextBlock)sender).Tag as Note;
-            NotesMenu.IsOpen = true;
+            selectedNote = viewModel.GetItem(selectedNote.Id);
+
             ContextHeader.Header = selectedNote.Description;
+            if (selectedNote.IsPinned)
+                ContextPin.Header = "Remove pin";
+            else
+                ContextPin.Header = "Pin to start";
+            NotesMenu.IsOpen = true;
         }
 
         void Change_Tap(object sender, RoutedEventArgs e)
@@ -96,11 +105,32 @@ namespace Notisblokk
             if (MessageBox.Show("Are you sure?", "Delete " + selectedNote.Description + "?",
                 MessageBoxButton.OKCancel) == MessageBoxResult.OK)
             {
+                if (selectedNote.IsPinned)
+                {
+                    ShellTile activeTile = ShellTile.ActiveTiles.First();
+                    activeTile.Update(Flipper.ClearTileData());
+                }
                 Dispatcher.BeginInvoke(() =>
                 {
                     viewModel.Delete(selectedNote);
                 });
             }
+        }
+
+        private void PinTile_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            if (selectedNote.IsPinned)
+            {
+                ShellTile activeTile = ShellTile.ActiveTiles.First();
+                activeTile.Update(Flipper.ClearTileData());
+            }
+            else
+            {
+                ShellTile tile = ShellTile.ActiveTiles.First();
+                tile.Update(Flipper.GetFlipTile(selectedNote));
+            }
+
+            viewModel.PinnedChanged(selectedNote);
         }
 
         private void ScrollViewer_Hold(object sender, System.Windows.Input.GestureEventArgs e)

@@ -31,7 +31,7 @@
                     <ItemsControl.ItemTemplate> 
                         <DataTemplate>
                             
-                            <Grid Margin="20,20,20,0">
+                            <Grid Margin="20,10,20,0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
@@ -43,11 +43,11 @@
 
                             <!-- Items -->
                             <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding Description}" Tag="{Binding}" Tap="Item_Tap"
-                                FontSize="{StaticResource PhoneFontSizeLarge}" Foreground="{StaticResource ThemeHeader}" TextWrapping="Wrap" Hold="Item_Tap" />
+                                FontSize="{StaticResource PhoneFontSizeMediumLarge}" Foreground="{StaticResource ThemeHeader}" TextWrapping="Wrap" Hold="Item_Tap" />
                             <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding Content}" Tag="{Binding}" Tap="Item_Tap"
                                     FontSize="{StaticResource PhoneFontSizeMedium}" Foreground="{StaticResource ThemeText}" FontWeight="Thin" TextWrapping="Wrap" Hold="Item_Tap" />
                             <TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding Date}" Tag="{Binding}" Tap="Item_Tap"
-                                    FontSize="{StaticResource PhoneFontSizeMedium}" Foreground="{StaticResource ThemeH3}" FontWeight="Light" TextWrapping="Wrap" Hold="Item_Tap" />
+                                    FontSize="{StaticResource PhoneFontSizeSmall}" Foreground="{StaticResource ThemeH3}" FontWeight="Light" TextWrapping="Wrap" Hold="Item_Tap" />
                             </Grid>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
@@ -58,7 +58,8 @@
             <toolkit:ContextMenuService.ContextMenu>
                 <toolkit:ContextMenu Background="{StaticResource ThemeBackground}" IsZoomEnabled="True" Tag="{Binding}"  Name="NotesMenu"  >
                     <toolkit:MenuItem Foreground="{StaticResource ThemeHeader}" Name="ContextHeader" FontWeight="Bold" IsEnabled="False" />
-                    <toolkit:MenuItem Foreground="{StaticResource ThemeText}" Name="CentextChange" Header="Change" Tap="Change_Tap" />
+                    <toolkit:MenuItem Foreground="{StaticResource ThemeText}" Name="ContextChange" Header="Change" Tap="Change_Tap" />
+                    <toolkit:MenuItem Foreground="{StaticResource ThemeText}" Name="ContextPin" Header="Pin to start" Tap="PinTile_Tap" />
                     <toolkit:MenuItem Foreground="{StaticResource ThemeText}" Name="ContextDelete" Header="Delete" Tap="Delete_Tap" /> 
                 </toolkit:ContextMenu>
             </toolkit:ContextMenuService.ContextMenu>

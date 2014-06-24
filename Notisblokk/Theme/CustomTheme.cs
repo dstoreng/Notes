@@ -111,37 +111,15 @@ namespace Notisblokk.Theme
 
         public void changeTheme(string x)
         {
-            if (x == "Light")
+            if (x == "Snap")
             {
                 _Background = "#FFFFFFFF";
-                _text = "#FFA7DBD8";
-                _h3 = "#FF69D2E7";
+                _text = "#FF000000";
+                _h3 = "#FFEA2E59";
                 _h2 = "#FFE0E4CC";
-                _h1 = "#FFF38630";
-                _header = "#FF00B9FF";
-                _title = "#FFFA6900";
-            }
-
-            if (x == "Dark")
-            {
-                _Background = "#FF000000";
-                _title = "#FFD9CEB2";
-                _header = "#FF948C75";
-                _h1 = "#FFD5DED9";
-                _h2 = "#FF7A6A53";
-                _h3 = "#FF99B2B7";
-                _text = "#FFA7DBD8";
-            }
-
-            if (x == "Color")
-            {
-                _Background = "#FF000000";
-                _title = "#FF4ECDC4";
-                _header = "#FFFF6B6B";
-                _h1 = "#FFC7F464";
-                _h2 = "#FF4ECDC4";
-                _h3 = "#FF79BD9A";
-                _text = "#FFC44D58";
+                _h1 = "#FFEA2E59";
+                _header = "#FF57A590";
+                _title = "#FFFFFFFF";
             }
 
             if (x == "Skyss")
@@ -153,17 +131,6 @@ namespace Notisblokk.Theme
                 _h2 = "#FF4B4948";
                 _h3 = "#FFC44D58";
                 _text = "#FF272224";
-            }
-
-            if (x == "Classy")
-            {
-                _Background = "#FF53777A";
-                _title = "#FFECD078";
-                _header = "#FFD95B43";
-                _h1 = "#FF542437";
-                _h2 = "#FF542437";
-                _h3 = "#FFD95B43";
-                _text = "#FFC44D58";
             }
 
             if (x == "Keli")

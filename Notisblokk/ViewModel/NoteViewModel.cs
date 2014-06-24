@@ -41,12 +41,14 @@ namespace Notisblokk
         public void AddNote(String description, String content)
         {
             Note n = new Note(description, content);
+            n.IsPinned = false;
             _notes.Add(n);
             SaveData();
         }
 
-        public void ChangeDetails(Note n, String description, String content)
+        public void ChangeDetails(String id, String description, String content)
         {
+            Note n = GetItem(id);
             n.Description = description;
             n.Content = content;
             SaveData();
@@ -58,7 +60,7 @@ namespace Notisblokk
             SaveData();
         }
 
-       public Note GetItem(String id)
+        public Note GetItem(String id)
         {
             foreach (Note n in _notes)
             {
@@ -66,6 +68,25 @@ namespace Notisblokk
                     return n;
             }
             return null;
+        }
+
+        public void PinnedChanged(Note n)
+        {
+            if (n.IsPinned)
+            {
+                n.IsPinned = false;
+            }
+            else
+            {
+                foreach (Note t in Notes)
+                {
+                    if (t.IsPinned == true)
+                        t.IsPinned = false;
+                }
+                n.IsPinned = true;
+            }
+
+            SaveData();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -13,7 +13,8 @@ namespace Notisblokk
         private String _content;
         private String _id;
         private DateTime _date;
-        public String Id { get { return _id; } set { _id = value; } } 
+        public Boolean IsPinned;
+        public String Id { get { return _id; } set { _id = value; } }
 
         public String Description { 
             get { return _description; }

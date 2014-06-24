@@ -28,13 +28,13 @@
         </Grid>
         <StackPanel Grid.Row="1" Margin="20,20,20,0">
             <TextBlock Text="Description" FontWeight="Bold" Foreground="{StaticResource ThemeH1}" />
-            <TextBox x:Name="textBoxDescription" InputScope="Text" />
+            <TextBox x:Name="textBoxDescription" InputScope="Text" BorderBrush="{StaticResource ThemeHeader}" BorderThickness="3"/>
         </StackPanel>
 
         <StackPanel Grid.Row="2" Margin="20,0,20,0">
             <TextBlock Text="Content" FontWeight="Bold" Foreground="{StaticResource ThemeH1}"/>
             <TextBox x:Name="textBoxContent" MaxHeight="2400" AcceptsReturn="True" 
-                     TextWrapping="Wrap" InputScope="Text" />
+                     TextWrapping="Wrap" InputScope="Text" BorderBrush="{StaticResource ThemeHeader}" BorderThickness="3"/>
         </StackPanel>
 
     </Grid>
