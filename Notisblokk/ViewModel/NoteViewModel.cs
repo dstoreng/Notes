@@ -38,20 +38,24 @@ namespace Notisblokk
             SaveData();
         }
 
-        public void AddNote(String description, String content)
+        public void AddNote(Note note)
         {
-            Note n = new Note(description, content);
-            n.IsPinned = false;
-            _notes.Add(n);
-            SaveData();
-        }
-
-        public void ChangeDetails(String id, String description, String content)
-        {
-            Note n = GetItem(id);
-            n.Description = description;
-            n.Content = content;
-            SaveData();
+            Note n = GetItem(note.Id);
+            
+            // Note is not new
+            if (n != null)
+            {
+                n.Description = note.Description;
+                n.Content = note.Content;
+            }
+            // Note is new
+            else
+            {
+                n = new Note(note.Description, note.Content);
+                n.IsPinned = false;
+                _notes.Add(n);
+                SaveData();   
+            }
         }
 
         public void Delete(Note n)

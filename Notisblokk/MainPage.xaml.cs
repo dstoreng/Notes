@@ -33,45 +33,30 @@ namespace Notisblokk
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            String id, description, content;
+            Note obj = null;
+            try
+            {
+                obj = (Note)PhoneApplicationService.Current.State["NOTE"];
+                PhoneApplicationService.Current.State.Remove("NOTE");
+            }
+            catch (KeyNotFoundException) { }
 
-            // Navigated from EditNote.xml
-            if (NavigationContext.QueryString.TryGetValue("id", out id))
+            if (obj != null)
             {
-                if (NavigationContext.QueryString.TryGetValue("description", out description))
+                Dispatcher.BeginInvoke(() =>
                 {
-                    if (NavigationContext.QueryString.TryGetValue("content", out content))
-                    {
-                        viewModel.ChangeDetails(id, description, content);
-                    }
-                }
-            }else{ // Navigated from NewNote.xml
-                if (NavigationContext.QueryString.TryGetValue("description", out description))
-                {
-                    if (NavigationContext.QueryString.TryGetValue("content", out content))
-                    {
-                        Dispatcher.BeginInvoke(() =>
-                        {
-                            viewModel.AddNote(description, content);
-                        });
-                    }
-                }
+                    viewModel.AddNote(obj);
+                });
             }
-            while (NavigationService.CanGoBack)
-            {
+
+            if (NavigationService.CanGoBack)
                 NavigationService.RemoveBackEntry();
-            }
-            NavigationContext.QueryString.Clear();
-                            
         }
 
         private void Notes_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            Dispatcher.BeginInvoke(() =>
-            {
-                ItemControlNotes.ItemsSource = null;
-                ItemControlNotes.ItemsSource = viewModel.Notes;
-            });
+            ItemControlNotes.ItemsSource = null;
+            ItemControlNotes.ItemsSource = viewModel.Notes;
         }
 
         private void newNote_Click(object sender, EventArgs e)
@@ -95,7 +80,7 @@ namespace Notisblokk
         void Change_Tap(object sender, RoutedEventArgs e)
         {
             NotesMenu.IsOpen = false;
-            NavigationService.Navigate(new Uri("/EditNote.xaml?id=" + selectedNote.Id + 
+            NavigationService.Navigate(new Uri("/NewNote.xaml?id=" + selectedNote.Id + 
                 "&description=" + selectedNote.Description + "&content=" + selectedNote.Content, UriKind.Relative));
         }
 

@@ -14,10 +14,26 @@ namespace Notisblokk
     {
         private String content;
         private String description;
+        private String id;
 
         public NewNote()
         {
             InitializeComponent();
+        }
+
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            if (NavigationContext.QueryString.TryGetValue("id", out id))
+            {
+                if (NavigationContext.QueryString.TryGetValue("description", out description))
+                {
+                    textBoxDescription.Text = description;
+                    if (NavigationContext.QueryString.TryGetValue("content", out content))
+                    {
+                        textBoxContent.Text = content;
+                    }
+                }
+            }
         }
 
         private void save_Click(object sender, EventArgs e)
@@ -32,9 +48,21 @@ namespace Notisblokk
                 MessageBox.Show("Description cannot exceed 13 letters.");
                 return;
             }
-            description = textBoxDescription.Text;
-            content = textBoxContent.Text;
-            NavigationService.Navigate(new Uri("/MainPage.xaml?description=" + description + "&content=" + content, UriKind.Relative));
+
+            Note note = new Note();
+            note.Description = textBoxDescription.Text;
+            note.Content = textBoxContent.Text;
+            if (id != null)
+            {
+                note.Id = id;
+                PhoneApplicationService.Current.State.Add("NOTE", note);
+            }
+            else
+            {
+                PhoneApplicationService.Current.State.Add("NOTE", note);
+            }
+
+            NavigationService.GoBack();
         }
 
         private void cancel_Click(object sender, EventArgs e)

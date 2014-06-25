@@ -93,9 +93,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="EditNote.xaml.cs">
-      <DependentUpon>EditNote.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Model\Flipper.cs" />
     <Compile Include="Theme\CustomTheme.cs" />
     <Compile Include="Model\IsolatedStorageOperations.cs" />
@@ -121,10 +118,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
-    <Page Include="EditNote.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -138,6 +131,7 @@
     <None Include="Notisblokk_2014_06_24_19_14_50.sap" />
     <None Include="Notisblokk_2014_06_24_19_17_36.sap" />
     <None Include="Notisblokk_2014_06_24_19_19_36.sap" />
+    <None Include="Notisblokk_2014_06_26_00_35_23.sap" />
     <None Include="packages.config" />
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml">
