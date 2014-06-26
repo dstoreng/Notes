@@ -25,7 +25,6 @@ namespace Notisblokk
         {
             InitializeComponent();
             viewModel = new NoteViewModel();
-            viewModel.Notes.CollectionChanged += Notes_CollectionChanged;
             ItemControlNotes.ItemsSource = viewModel.Notes;
             handler = ThemeHandler.getInstance();
             handler.setApp(App.Current);
@@ -51,12 +50,6 @@ namespace Notisblokk
 
             if (NavigationService.CanGoBack)
                 NavigationService.RemoveBackEntry();
-        }
-
-        private void Notes_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            ItemControlNotes.ItemsSource = null;
-            ItemControlNotes.ItemsSource = viewModel.Notes;
         }
 
         private void newNote_Click(object sender, EventArgs e)
@@ -114,7 +107,6 @@ namespace Notisblokk
                 ShellTile tile = ShellTile.ActiveTiles.First();
                 tile.Update(Flipper.GetFlipTile(selectedNote));
             }
-
             viewModel.PinnedChanged(selectedNote);
         }
 
@@ -122,6 +114,11 @@ namespace Notisblokk
         {
             // Disables context menu when ViewModel is empty
             e.Handled = true;
+        }
+
+        private void Settings_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/Settings.xaml", UriKind.Relative));
         }
     }
 }

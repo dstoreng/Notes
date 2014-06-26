@@ -111,7 +111,7 @@ namespace Notisblokk.Theme
 
         public void changeTheme(string x)
         {
-            if (x == "Snap")
+            if (x == "Green")
             {
                 _Background = "#FFFFFFFF";
                 _text = "#FF000000";
@@ -133,7 +133,7 @@ namespace Notisblokk.Theme
                 _text = "#FF272224";
             }
 
-            if (x == "Keli")
+            if (x == "Pink")
             {
                 _title = "#FFFCF6E6";
                 _header = "#FF9D435D";

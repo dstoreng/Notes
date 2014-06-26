@@ -12,23 +12,45 @@ namespace Notisblokk.Theme
     {
         private System.Windows.Application app;
         private static ThemeHandler instance;
-
-        private ThemeHandler()
-        {
-            changeTheme("Keli");
-        }
-
-        public void setApp(System.Windows.Application app)
-        {
-            this.app = app;
-            ApplyTheme();
-        }
+        private static String theme;
 
         public static ThemeHandler getInstance()
         {
             if (instance == null)
                 instance = new ThemeHandler();
             return instance;
+        }
+
+        private ThemeHandler()
+        {
+            GetTheme();
+            changeTheme(theme);            
+        }
+
+        private async void GetTheme()
+        {
+            String obj = await IsolatedStorageOperations.Load<String>("THEME");
+
+            MessageBox.Show(obj.ToString());
+            if (obj == null)
+            {
+                theme = "Pink";
+            }
+            else
+            {
+                theme = "Green";
+            }
+        }
+
+        public void SaveTheme()
+        {
+            theme.Save<string>("THEME");
+        }
+
+        public void setApp(System.Windows.Application app)
+        {
+            this.app = app;
+            ApplyTheme();
         }
 
         private CustomTheme _Theme;

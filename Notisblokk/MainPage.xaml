@@ -18,14 +18,22 @@
     <Grid x:Name="LayoutRoot" Background="{StaticResource ThemeHeader}">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
-            <RowDefinition Height="9*" />
+            <RowDefinition Height="8*" />
         </Grid.RowDefinitions>
+        
         <!-- Header -->
-        <Grid Grid.Column="0" Background="{StaticResource ThemeHeader}" >
-            <TextBlock Foreground="{StaticResource ThemeTitle}" Margin="20,10,0,0" FontSize="40" Text="My notes"/>
+        <Grid Grid.Row="0" Margin="20,10,20,0" Grid.ColumnSpan="2" Background="{StaticResource ThemeHeader}" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" Foreground="{StaticResource ThemeTitle}"
+                       FontSize="40" Text="My notes"/>
+            <Image x:Name="Settings" Grid.Column="2" Source="/Resources/settings.png" Tap="Settings_Tap" />
         </Grid>
 
-        <ScrollViewer Grid.Row="2" Hold="ScrollViewer_Hold" Background="{StaticResource ThemeBackground}" >   
+        <ScrollViewer Grid.Row="1" Hold="ScrollViewer_Hold" Background="{StaticResource ThemeBackground}" >   
             <StackPanel VerticalAlignment="Stretch">
                 <ItemsControl x:Name="ItemControlNotes" Tag="{Binding}">                  
                     <ItemsControl.ItemTemplate> 
