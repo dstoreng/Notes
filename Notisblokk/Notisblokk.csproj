@@ -94,6 +94,9 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\Flipper.cs" />
+    <Compile Include="Settings.xaml.cs">
+      <DependentUpon>Settings.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Theme\CustomTheme.cs" />
     <Compile Include="Model\IsolatedStorageOperations.cs" />
     <Compile Include="LocalizedStrings.cs" />
@@ -123,6 +126,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="NewNote.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Settings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -163,6 +170,7 @@
     <Content Include="Resources\app_icon_small.png" />
     <Content Include="Resources\delete.png" />
     <Content Include="Resources\new.png" />
+    <Content Include="Resources\settings.png" />
     <Content Include="Resources\stop.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Add.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />

@@ -54,8 +54,8 @@ namespace Notisblokk
                 n = new Note(note.Description, note.Content);
                 n.IsPinned = false;
                 _notes.Add(n);
-                SaveData();   
             }
+            SaveData();   
         }
 
         public void Delete(Note n)

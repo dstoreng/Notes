@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
+using System.Collections.ObjectModel;
 
 namespace Notisblokk.Theme
 {
@@ -12,36 +13,51 @@ namespace Notisblokk.Theme
     {
         private System.Windows.Application app;
         private static ThemeHandler instance;
-
-        private ThemeHandler()
-        {
-            changeTheme("Keli");
-        }
-
-        public void setApp(System.Windows.Application app)
-        {
-            this.app = app;
-            ApplyTheme();
-        }
-
-        public static ThemeHandler getInstance()
-        {
-            if (instance == null)
-                instance = new ThemeHandler();
-            return instance;
-        }
+        private static readonly String THEMEFILE = "themefile.xml";
+        private static String currentTheme;
+        private static ObservableCollection<String> _theme;
 
         private CustomTheme _Theme;
-
         public CustomTheme Theme
         {
             get
             {
                 return _Theme;
             }
+        } 
+        
+        private ThemeHandler() {}
+
+        /* Load theme and return reference */
+        public async static Task<ThemeHandler> getInstance()
+        {
+            if (instance == null)
+            {
+                String value;
+                try
+                { 
+                    value = await LoadTheme();
+                }catch(Exception e)
+                {
+                    // Fallback value, happens first run
+                    value = "Snap";
+                }
+                currentTheme = value;
+                instance = new ThemeHandler();
+            }
+            return instance;
         }
 
-        public void changeTheme(String val)
+        /* Apply theme */
+        public void setApp(System.Windows.Application app)
+        {
+            _Theme = new CustomTheme(currentTheme);
+
+            this.app = app;
+            ApplyTheme();
+        }
+
+        public async void SetTheme(String val)
         {
             _Theme = new CustomTheme(val);
 
@@ -49,7 +65,9 @@ namespace Notisblokk.Theme
             {
                 ApplyTheme();
             }
-        }
+
+            SaveTheme(val);
+        }       
 
         private void ApplyTheme()
         {
@@ -70,6 +88,19 @@ namespace Notisblokk.Theme
                     Convert.ToByte(hexaColor.Substring(5, 2), 16),
                     Convert.ToByte(hexaColor.Substring(7, 2), 16)
             );
+        }
+
+        public async static Task<String> LoadTheme()
+        {
+            _theme = await IsolatedStorageOperations.Load<ObservableCollection<String>>(THEMEFILE);
+            return _theme[0];
+        }
+
+        private async void SaveTheme(String value)
+        {
+            _theme = new ObservableCollection<string>();
+            _theme.Add(value);
+            await _theme.Save(THEMEFILE);
         }
 
     }

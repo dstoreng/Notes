@@ -27,7 +27,7 @@ namespace Notisblokk
             viewModel = new NoteViewModel();
             viewModel.Notes.CollectionChanged += Notes_CollectionChanged;
             ItemControlNotes.ItemsSource = viewModel.Notes;
-            handler = ThemeHandler.getInstance();
+            handler = ThemeHandler.getInstance().Result;
             handler.setApp(App.Current);
         }
 
@@ -122,6 +122,11 @@ namespace Notisblokk
         {
             // Disables context menu when ViewModel is empty
             e.Handled = true;
+        }
+
+        private void SettingsTap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/Settings.xaml", UriKind.Relative));
         }
     }
 }
