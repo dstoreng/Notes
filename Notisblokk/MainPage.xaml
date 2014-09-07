@@ -26,7 +26,7 @@
                 <ColumnDefinition Width="5*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <TextBlock Foreground="{StaticResource ThemeTitle}" Margin="20,10,0,0" FontSize="40" Text="My notes" Tap="SettingsTap"/>
+            <TextBlock Foreground="{StaticResource ThemeTitle}" Margin="20,10,0,0" FontSize="40" Text="Notes" Tap="SettingsTap"/>
             <Image Grid.Column="2" Source="/Resources/settings.png" Tap="SettingsTap" Margin="0,10,0,0"/>
         </Grid>
 

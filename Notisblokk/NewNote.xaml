@@ -6,6 +6,7 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -33,8 +34,8 @@
 
         <StackPanel Grid.Row="2" Margin="20,0,20,0">
             <TextBlock Text="Content" FontWeight="Bold" Foreground="{StaticResource ThemeH1}"/>
-            <TextBox x:Name="textBoxContent" MaxHeight="2400" AcceptsReturn="True" 
-                     TextWrapping="Wrap" InputScope="Text" BorderBrush="{StaticResource ThemeHeader}" BorderThickness="3" />
+            <TextBox x:Name="textBoxContent" AcceptsReturn="True" TextWrapping="Wrap" InputScope="Text" 
+                     Height="auto" BorderBrush="{StaticResource ThemeHeader}" BorderThickness="3" />
         </StackPanel>
 
     </Grid>

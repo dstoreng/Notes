@@ -35,6 +35,7 @@
             <toolkit:ListPicker Margin="10,-5,0,0" x:Name="ThemePicker" SelectionChanged="ThemeChanged" BorderBrush="{StaticResource ThemeHeader}">
                 <toolkit:ListPickerItem x:Name="Snap" Content="Green" Foreground="{StaticResource ThemeHeader}"/>
                 <toolkit:ListPickerItem x:Name="Keli" Content="Pink" Foreground="{StaticResource ThemeHeader}"/>
+                <toolkit:ListPickerItem x:Name="Skyss" Content="Orange" Foreground="{StaticResource ThemeHeader}" />
             </toolkit:ListPicker>
             
         </StackPanel>
